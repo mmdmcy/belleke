@@ -18,6 +18,10 @@ func listenBroadcast(port int) (*net.UDPConn, error) {
 		err := c.Control(func(fd uintptr) {
 			inner = unix.SetsockoptInt(int(fd), unix.SOL_SOCKET, unix.SO_REUSEADDR, 1)
 			if inner == nil {
+				// macOS and the BSDs need this one too for a second listener.
+				inner = unix.SetsockoptInt(int(fd), unix.SOL_SOCKET, unix.SO_REUSEPORT, 1)
+			}
+			if inner == nil {
 				inner = unix.SetsockoptInt(int(fd), unix.SOL_SOCKET, unix.SO_BROADCAST, 1)
 			}
 		})
