@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+.codex/
+.claude/
+AGENTS.md
+private/
+*.log
+/belleke
+/belleke.exe
+/dist/
+*.app/
+*.syso
+.DS_Store
